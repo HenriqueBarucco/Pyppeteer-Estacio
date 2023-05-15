@@ -1,2 +1,4 @@
 screenshots/*.png
 .env
+
+**/__pycache__/
