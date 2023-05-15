@@ -2,3 +2,5 @@ screenshots/*.png
 .env
 
 **/__pycache__/
+
+.vscode
