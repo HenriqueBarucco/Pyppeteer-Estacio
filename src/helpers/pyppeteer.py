@@ -48,12 +48,14 @@ class NotSelenium:
         await self.__page.screenshot({'path': 'screenshots/5-saladeaula.png'})
 
     async def getFile(self):
+        # #card-entrega-ARA0066
         cardMateria = await self.__page.waitForXPath('//*[@id="card-entrega-ARA0066"]', timeout=60000)
         await cardMateria.click()
 
         await asyncio.sleep(10)
         await self.__page.screenshot({'path': 'screenshots/6-abrirmateria.png'})
 
+        # #temas-lista-topicos > li:nth-child(5)
         await asyncio.sleep(15)
         tema5Card = await self.__page.waitForXPath('//*[@id="temas-lista-topicos"]/li[5]', isIntersectingViewport=True, timeout=60000)
         await asyncio.sleep(5)
