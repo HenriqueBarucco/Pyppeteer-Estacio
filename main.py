@@ -1,4 +1,4 @@
-from src.views.tela import login_screen
+from screen import login_screen
 
 def main():
     screen = login_screen()
