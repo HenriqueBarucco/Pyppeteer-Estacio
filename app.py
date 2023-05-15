@@ -1,11 +1,15 @@
+import os
 from src.pyppeteer import NotSelenium as Browser
+from dotenv import load_dotenv
 import asyncio
+
+load_dotenv()
 
 async def main():
     
     session = await Browser().openSession()
 
-    await session.login('email', 'senha')
+    await session.login(str(os.getenv('EMAIL')), str(os.getenv('SENHA')))
     await session.getFile()
     await session.finishSession()
 
