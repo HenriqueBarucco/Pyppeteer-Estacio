@@ -1,5 +1,5 @@
 import os
-from src.helpers.pyppeteer import NotSelenium as Browser
+from helpers.pyppeteer import NotSelenium as Browser
 from dotenv import load_dotenv
 import asyncio
 
