@@ -43,17 +43,18 @@ class NotSelenium:
         btnNo = await self.__page.waitForXPath('//*[@id="idBtn_Back"]', isIntersectingViewport=True)
         await btnNo.click()
 
-        time.sleep(5)
+        time.sleep(15)
         await self.__page.screenshot({'path': 'screenshots/5-saladeaula.png'})
 
     async def getFile(self):
-        classCard = await self.__page.waitForXPath('//*[@id="card-entrega-ARA0066"]', timeout=60000)
-        await classCard.click()
+        cardMateria = await self.__page.waitForXPath('//*[@id="card-entrega-ARA0066"]', timeout=60000)
+        await cardMateria.click()
 
         time.sleep(5)
         await self.__page.screenshot({'path': 'screenshots/6-abrirmateria.png'})
 
-        tema5Card = await self.__page.waitForXPath('//*[@id="temas-lista-topicos"]/li[5]/a', isIntersectingViewport=True, timeout=60000)
+        time.sleep(10)
+        tema5Card = await self.__page.waitForXPath('//*[@id="temas-lista-topicos"]/li[5]', isIntersectingViewport=True, timeout=60000)
         time.sleep(10)
         await tema5Card.click()
 
