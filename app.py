@@ -5,7 +5,7 @@ async def main():
     
     session = await Browser().openSession()
 
-    await session.login('puta', 'merda')
+    await session.login('email', 'senha')
     await session.getFile()
     await session.finishSession()
 

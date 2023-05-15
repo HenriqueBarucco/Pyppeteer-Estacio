@@ -14,14 +14,14 @@ class NotSelenium:
         await btnLogin.click()
         
         time.sleep(5)
-        await self.__page.screenshot({'path': '1-login.png'})
+        await self.__page.screenshot({'path': 'screenshots/1-login.png'})
 
         inputEmail = await self.__page.waitForXPath('//*[@id="i0116"]', isIntersectingViewport=True)
 
         await inputEmail.type(email)
         
         time.sleep(5)
-        await self.__page.screenshot({'path': '2-email.png'})
+        await self.__page.screenshot({'path': 'screenshots/2-email.png'})
         btnNext = await self.__page.waitForXPath('//*[@id="idSIButton9"]', isIntersectingViewport=True)
 
         await btnNext.click()
@@ -32,33 +32,33 @@ class NotSelenium:
         await inputPassword.type(password)
 
         time.sleep(5)
-        await self.__page.screenshot({'path': '3-senha.png'})
+        await self.__page.screenshot({'path': 'screenshots/3-senha.png'})
 
         btnNext = await self.__page.waitForXPath('//*[@id="idSIButton9"]', isIntersectingViewport=True)
         await btnNext.click()
 
         time.sleep(5)
-        await self.__page.screenshot({'path': '4-no.png'})
+        await self.__page.screenshot({'path': 'screenshots/4-no.png'})
 
         btnNo = await self.__page.waitForXPath('//*[@id="idBtn_Back"]', isIntersectingViewport=True)
         await btnNo.click()
 
         time.sleep(5)
-        await self.__page.screenshot({'path': '5-saladeaula.png'})
+        await self.__page.screenshot({'path': 'screenshots/5-saladeaula.png'})
 
     async def getFile(self):
         classCard = await self.__page.waitForXPath('//*[@id="card-entrega-ARA0066"]', timeout=60000)
         await classCard.click()
 
         time.sleep(5)
-        await self.__page.screenshot({'path': '6-abrirmateria.png'})
+        await self.__page.screenshot({'path': 'screenshots/6-abrirmateria.png'})
 
         tema5Card = await self.__page.waitForXPath('//*[@id="temas-lista-topicos"]/li[5]/a', isIntersectingViewport=True, timeout=60000)
         time.sleep(10)
         await tema5Card.click()
 
         time.sleep(5)
-        await self.__page.screenshot({'path': '7-abrirtema.png'})
+        await self.__page.screenshot({'path': 'screenshots/7-abrirtema.png'})
 
         btnDownloadGrupo1 = self.__page.waitForXPath('//*[@id="acessar-conteudo-complementar-arquivo-64615eb275e90c00266b9ff9"]', isIntersectingViewport=True, timeout=60000)
         time.sleep(5)
@@ -66,7 +66,7 @@ class NotSelenium:
 
         self.__page.waitForDownload()
 
-        await self.__page.screenshot({'path': '8-baixar.png'})
+        await self.__page.screenshot({'path': 'screenshots/8-baixar.png'})
 
 
     async def finishSession(self):
