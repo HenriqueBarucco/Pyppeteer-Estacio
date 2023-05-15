@@ -11,7 +11,6 @@ async def main():
 
     await session.login(str(os.getenv('EMAIL')), str(os.getenv('SENHA')))
     await session.getFile()
-    await session.download_file()
     await session.finishSession()
 
 asyncio.get_event_loop().run_until_complete(main())

@@ -1,5 +1,4 @@
 from pyppeteer import launch
-from pyppeteer import errors
 import asyncio
 
 class NotSelenium:
@@ -11,88 +10,64 @@ class NotSelenium:
     async def login(self, email, password):
         await self.__page.goto('https://estudante.estacio.br/login')
 
-        btnLogin = await self.__page.waitForXPath('//*[@id="section-login"]/div/div/div[1]/section/div[1]/button', isIntersectingViewport=True)
-        await btnLogin.click()
-        
+        # Esperando o botão de login aparecer
+        await self.__page.waitFor('#section-login > div > div > div.sc-cNNTdL.hItoDh.colLogin > section > div.sc-gKRMOK.hWvdtC > button')
+        await self.__page.click('#section-login > div > div > div.sc-cNNTdL.hItoDh.colLogin > section > div.sc-gKRMOK.hWvdtC > button')
+
         await asyncio.sleep(5)
         await self.__page.screenshot({'path': 'screenshots/1-login.png'})
 
-        inputEmail = await self.__page.waitForXPath('//*[@id="i0116"]', isIntersectingViewport=True)
-
-        await inputEmail.type(email)
+        # Selecionar o campo de email
+        await self.__page.waitFor('#i0116')
+        await self.__page.type('#i0116', email)
         
         await asyncio.sleep(5)
         await self.__page.screenshot({'path': 'screenshots/2-email.png'})
-        btnNext = await self.__page.waitForXPath('//*[@id="idSIButton9"]', isIntersectingViewport=True)
 
-        await btnNext.click()
+        # Selecionar o botão de "Próximo"
+        await self.__page.waitFor('#idSIButton9')
+        await self.__page.click('#idSIButton9')
 
-
-        inputPassword = await self.__page.waitForXPath('//*[@id="i0118"]', isIntersectingViewport=True)
-
-        await inputPassword.type(password)
+        # Selecionar o campo de senha
+        await self.__page.waitFor('#i0118')
+        await self.__page.type('#i0118', password)
 
         await asyncio.sleep(5)
         await self.__page.screenshot({'path': 'screenshots/3-senha.png'})
 
-        btnNext = await self.__page.waitForXPath('//*[@id="idSIButton9"]', isIntersectingViewport=True)
-        await btnNext.click()
+        # Selecionar o botão de "Entrar"
+        await self.__page.waitFor('#idSIButton9')
+        await self.__page.click('#idSIButton9')
 
         await asyncio.sleep(5)
         await self.__page.screenshot({'path': 'screenshots/4-no.png'})
 
-        btnNo = await self.__page.waitForXPath('//*[@id="idBtn_Back"]', isIntersectingViewport=True)
-        await btnNo.click()
+        # Selecionar o botão de "Não"
+        await self.__page.waitFor('#idBtn_Back')
+        await self.__page.click('#idBtn_Back')
 
         await asyncio.sleep(10)
         await self.__page.screenshot({'path': 'screenshots/5-saladeaula.png'})
 
     async def getFile(self):
-        # #card-entrega-ARA0066
-        cardMateria = await self.__page.waitForXPath('//*[@id="card-entrega-ARA0066"]', timeout=60000)
-        await cardMateria.click()
+        
+        # Selecionar Card da matéria (Paradigmas de Python...)
+        await self.__page.waitFor('#card-entrega-ARA0066')
+        await self.__page.click('#card-entrega-ARA0066')
 
-        await asyncio.sleep(10)
         await self.__page.screenshot({'path': 'screenshots/6-abrirmateria.png'})
 
-        # #temas-lista-topicos > li:nth-child(5)
-        await asyncio.sleep(15)
-        tema5Card = await self.__page.waitForXPath('//*[@id="temas-lista-topicos"]/li[5]', isIntersectingViewport=True, timeout=60000)
-        await asyncio.sleep(5)
-        await tema5Card.click()
-
-        await asyncio.sleep(5)
+        # Selecionar o tema (Tema 5)
+        await self.__page.waitFor('#temas-lista-topicos > li:nth-child(5)')
+        await self.__page.click('#temas-lista-topicos > li:nth-child(5)')
+        
         await self.__page.screenshot({'path': 'screenshots/7-abrirtema.png'})
 
-        #btnDownloadGrupo1 = self.__page.waitForXPath('//*[@id="acessar-conteudo-complementar-arquivo-64615eb275e90c00266b9ff9"]', isIntersectingViewport=True, timeout=60000)
-        #await asyncio.sleep(5)
-        #await btnDownloadGrupo1.evaluate('node => node.click()', force_expr=True)
-
-        #self.__page.waitForDownload()
-
-    async def download_file(self):
+        # Selecionar o arquivo para download (Grupo 1)
+        await self.__page.waitFor('#acessar-conteudo-complementar-arquivo-64615eb275e90c00266b9ff9')
         await self.__page.click('#acessar-conteudo-complementar-arquivo-64615eb275e90c00266b9ff9')
+        
         await self.__page.screenshot({'path': 'screenshots/8-baixar.png'})
-        
-        # Interceptando o evento de download
-        #client = await self.__page.target.createCDPSession()
-        #await client.send('Page.enable')
-        #download_event = await client.waitForEvent('Page.downloadWillBegin')
-        
-        #self.__page.waitForDownload()
-
-        # Interceptando o evento de download
-        client = await self.__page.target.createCDPSession()
-        await client.send('Page.enable')
-        await client.send('Page.setDownloadBehavior', {'behavior': 'allow', 'downloadPath': '/'})
-        
-        def on_download_will_begin(event):
-            print(event)
-            
-        client.on('Page.downloadWillBegin', on_download_will_begin)
-        
-        # Esperando o download ser concluído
-        await asyncio.sleep(5)  # aguarda 5 segundos
 
     async def finishSession(self):
         await self.__browser.close()
