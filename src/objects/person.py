@@ -3,8 +3,3 @@ class Person:
         self.phone = phone
         self.email = email
         self.password = password
-
-
-
-
-

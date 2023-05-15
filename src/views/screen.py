@@ -4,7 +4,6 @@ import re
 
 class login_screen:
 
-
     def __init__(self):
         self.window = tk.Tk()
         self.username_entry = None
@@ -19,14 +18,9 @@ class login_screen:
         self.window.configure(bg="white")
         self.draw_screen()
 
-
-
         self.window.mainloop()
 
-
-
     def draw_screen(self):
-
         #CRIANDO OS WIDGETS
         login_label = tk.Label(
             self.frame, text="Login", bg='white', fg="black", font=("Arial", 30)
@@ -57,12 +51,9 @@ class login_screen:
    
     def validate_login(self):
         username = self.username_entry.get()
-        
         email_pattern = r"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
 
         if  re.match(email_pattern, username):
             messagebox.showinfo("Login bem sucedido", "Iniciando o procedimento, " + username.split('@')[0] + "!")
         else:
-            messagebox.showerror("O login falhou", "o email digitado não é um email.")    
-
-
+            messagebox.showerror("O login falhou", "o email digitado não é um email.")
