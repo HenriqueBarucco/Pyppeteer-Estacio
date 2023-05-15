@@ -13,7 +13,7 @@ class login_screen:
         self.telefone_entry = None
         self.frame = tk.Frame(bg='white')
 
-    def criaTelaLogin(self):
+    def create_login_screen(self):
         self.window.title("Login Screen")
         self.window.geometry("900x500")
         self.window.configure(bg="white")
@@ -64,13 +64,5 @@ class login_screen:
             messagebox.showinfo("Login bem sucedido", "Iniciando o procedimento, " + username.split('@')[0] + "!")
         else:
             messagebox.showerror("O login falhou", "o email digitado não é um email.")    
-    
-    def getUsernameEntry(self):
-        nome_usuario = self.username_entry.get()
-        return nome_usuario
-
-    def getPasswordEntry(self):
-        senha_usuario = self.password_entry.get()
-        return senha_usuario
 
 

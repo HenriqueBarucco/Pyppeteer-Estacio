@@ -3,8 +3,8 @@ from src.views.tela import login_screen
 
 
 def main():
-    tela_de_login = login_screen()
-    tela_de_login.criaTelaLogin()
+    screen = login_screen()
+    screen.create_login_screen()
 
 main()
 
