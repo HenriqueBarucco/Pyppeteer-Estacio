@@ -3,7 +3,7 @@ import asyncio
 
 class NotSelenium:
     async def openSession(self):
-        self.__browser = await launch()
+        self.__browser = await launch(executablePath='/usr/bin/google-chrome-stable', headless=True, args=['--no-sandbox'])
         self.__page = await self.__browser.newPage()
         return self
 

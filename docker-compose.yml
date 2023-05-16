@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  app:
+    container_name: pyppeteer-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    env_file: .env
+    environment:
+      - DISPLAY=$DISPLAY
+      - EMAIL=${EMAIL}
+      - SENHA=${SENHA}
+    tty: true
+    privileged: true

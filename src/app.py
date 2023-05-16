@@ -6,6 +6,7 @@ import asyncio
 load_dotenv()
 
 async def main():
+    print(str(os.getenv('EMAIL')))
     
     session = await Browser().openSession()
 
