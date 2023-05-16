@@ -1,4 +1,5 @@
 from pyppeteer import launch
+import requests
 import asyncio
 
 class NotSelenium:
@@ -68,6 +69,15 @@ class NotSelenium:
         await self.__page.click('#acessar-conteudo-complementar-arquivo-64615eb275e90c00266b9ff9')
         
         await self.__page.screenshot({'path': 'screenshots/8-baixar.png'})
+        
+        # Espere a resposta da requisição de download
+        response = await self.__page.waitForResponse(lambda response: response.url.startswith('https://s3.amazonaws.com'))
+        
+        r = requests.get(response.url)
+
+        # Salve o arquivo
+        with open('/app/downloads/data.7z', 'wb') as f:
+            f.write(r.content)
 
     async def finishSession(self):
         await self.__browser.close()
