@@ -1,11 +1,11 @@
 from pyppeteer import launch
-import entities.xcode as xcode
-import requests
+import src.entities.xcode as xcode
 import asyncio
+import requests
 
 class NotSelenium:
     async def openSession(self):
-        self.__browser = await launch(executablePath='/usr/bin/google-chrome-stable', headless=True, args=['--no-sandbox'])
+        self.__browser = await launch(headless=True, args=['--no-sandbox'])
         self.__page = await self.__browser.newPage()
         await self.__page.goto('https://estudante.estacio.br/login')
         return self
@@ -32,6 +32,7 @@ class NotSelenium:
 
         # Selecionar o botão de "Não"
         await self._waitAndClick(xcode.NO_BUTTON)
+        await asyncio.sleep(5)
         await self.__page.screenshot({'path': 'screenshots/5-saladeaula.png'})
 
     async def getFile(self):

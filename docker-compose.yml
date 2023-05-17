@@ -10,7 +10,7 @@ services:
       - .:/app
     env_file: .env
     environment:
-      - DISPLAY=$DISPLAY
+      - DISPLAY=${DISPLAY}
       - EMAIL=${EMAIL}
       - SENHA=${SENHA}
     tty: true

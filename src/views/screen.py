@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 import re 
-from src.objects.person import Person 
+from src.entities.person import Person 
+from src.app import run_application
 
 class login_screen:
 
@@ -30,7 +31,7 @@ class login_screen:
     self.frame, text="Email", bg='white', fg="black", font=("Arial", 16))
         self.email_entry = tk.Entry(self.frame,font=("Arial",16))
         self.password_entry = tk.Entry(self.frame,show="*",font=("Arial",16))
-        self.phone_entry = tk.Entry(self.frame,show="*",font=("Arial",16))
+        self.phone_entry = tk.Entry(self.frame,font=("Arial",16))
         password_label = tk.Label(
     self.frame, text="Senha", bg='white', fg="black", font=("Arial", 16))
         phone_label = tk.Label(
@@ -57,9 +58,7 @@ class login_screen:
         if  re.match(email_pattern, username):
             person = Person(phone=self.phone_entry.get(),email=self.email_entry.get(),password=self.password_entry.get())
             
-            ## aqui seria a chamada do metodo da sessao que pega o csv 
-            print(person.email)
-
+            run_application(person)
 
             messagebox.showinfo("Login bem sucedido", "Iniciando o procedimento, " + username.split('@')[0] + "!")
         else:

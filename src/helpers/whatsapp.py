@@ -1,4 +1,3 @@
 class WhatsAppAPI:
-    def sendMessage():
-        # Code to send message
-        return True
+    def sendMessage(phone, message):
+        print(f'Enviando mensagem para {phone} com o texto: {message}')
