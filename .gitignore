@@ -1,6 +1,7 @@
 screenshots/*.png
 downloads/*.7z
 
+env
 .env
 
 **/__pycache__/
