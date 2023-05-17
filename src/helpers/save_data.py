@@ -31,7 +31,7 @@ class save_data:
         with py7zr.SevenZipFile(self.seven_zip_file_path, mode='r') as z:
             csv_file_name = z.getnames()[0]  
             z.extract(targets=csv_file_name)
-            
+        print('arquivo descompactado')    
         return csv_file_name
 
     def _toXlsx(self, df):
