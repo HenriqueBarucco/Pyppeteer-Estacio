@@ -10,7 +10,7 @@ class save_data:
         self.seven_csv = seven_csv
         self.seven_zip_file_path = seven_zip_file_path
         self.directory = directory
-        self.desktop_path = os.path.expanduser("~/Área de Trabalho")
+        self.desktop_path = os.path.expanduser("~\Desktop")
 
     def execute(self):
         df = pd.read_csv(self._unzip())
