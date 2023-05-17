@@ -4,7 +4,6 @@ Projeto voltado para o trabalho da matéria de Paradigmas de Linguagem de Progra
 ## Requisitos
 
 - Python 3.8
-- Docker e Docker Compose (OPCIONAL)
 
 ## Tecnologias
 
@@ -12,7 +11,6 @@ Projeto voltado para o trabalho da matéria de Paradigmas de Linguagem de Progra
 - Pyppeteer
 - Tkinter
 - Pandas
-- Docker e Docker Compose
 
 ## Preparação do ambiente
 
@@ -29,10 +27,6 @@ Projeto voltado para o trabalho da matéria de Paradigmas de Linguagem de Progra
 - pip install --no-cache-dir -r requirements.txt
 
 - python main.py
-
-## Instalação Docker
-
-- docker-compose up --build
 
 ## Autores
 
