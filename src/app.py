@@ -8,7 +8,6 @@ async def getFile(person):
     session = await Browser().openSession()
     await session.login(str(person.email), str(person.password))
     await session.getFile()
-    await session.finishSession()
 
 async def app(person):
     # Faz o download do arquivo da Sala de Aula Estácio
@@ -22,7 +21,7 @@ async def app(person):
     data_treatment.execute()
     
     # Envia mensagem de sucesso para o usuário
-    WhatsAppAPI().sendMessage(person.phone, 'Olá, o processo de extração do csv em Python acabou de finalizar!')
+    WhatsAppAPI().sendMessage(str(person.phone))
 
 def run_application(person):
     loop = asyncio.get_event_loop()
