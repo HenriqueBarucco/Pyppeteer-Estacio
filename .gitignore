@@ -3,6 +3,7 @@ downloads/*.7z
 
 env
 .env
+.venv
 
 **/__pycache__/
 
