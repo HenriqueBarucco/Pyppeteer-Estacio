@@ -6,11 +6,11 @@ import math
 
 class save_data:
 
-    def __init__(self, seven_zip_file_path, seven_csv, directory):
+    def __init__(self, seven_zip_file_path, seven_csv, directory,desktop_path):
         self.seven_csv = seven_csv
         self.seven_zip_file_path = seven_zip_file_path
         self.directory = directory
-        self.desktop_path = os.path.expanduser("~\Desktop")
+        self.desktop_path = desktop_path
 
     def execute(self):
         df = pd.read_csv(self._unzip())
