@@ -22,7 +22,7 @@ async def app(person):
     data_treatment.execute()
     
     # Envia mensagem de sucesso para o usuário
-    WhatsAppAPI().send_message(person.phone, 'Olá, o processo de extração do csv em Python acabou de finalizar!')
+    WhatsAppAPI().sendMessage(person.phone, 'Olá, o processo de extração do csv em Python acabou de finalizar!')
 
 def run_application(person):
     loop = asyncio.get_event_loop()
