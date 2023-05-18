@@ -63,7 +63,7 @@ class login_screen:
       #  dialog.title("AUTO-ESTACIO")
 
     def open_directory_dialog(self):
-        selected_directory = filedialog.askdirectory(initialdir="~\Desktop")
+        selected_directory = filedialog.askdirectory(initialdir="~")
 
         self.dir_entry = selected_directory
 
@@ -72,12 +72,14 @@ class login_screen:
         username = self.email_entry.get()
         email_pattern = r"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
 
-        if  re.match(email_pattern, username):
+        if  re.match(email_pattern, username) and self.dir_entry != None:
             person = Person(phone=self.phone_entry.get(),email=self.email_entry.get(),
             password=self.password_entry.get(),directory=self.dir_entry)
 
-            run_application(person)
 
-            messagebox.showinfo("Login bem sucedido", "Iniciando o procedimento, " + username.split('@')[0] + "!")
+            message = messagebox.showinfo("Alerta", "Iniciando o procedimento, do usuario " + username.split('@')[0] + "! " + "em " +self.dir_entry )
+            if message == 'ok':
+                            run_application(person)
         else:
-            messagebox.showerror("O login falhou", "o email digitado não é um email.")
+            messagebox.showerror("falha", "o email digitado não é um email ou não foi selecionado um diretório.")
+            
