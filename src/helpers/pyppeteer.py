@@ -53,8 +53,8 @@ class NotSelenium:
         print('Tema aberto!')
 
         # Selecionar o arquivo para download (Grupo 1)
-        await self.__page.waitFor(xcode.GRUPO_1)
-        await self.__page.click(xcode.GRUPO_1)
+        element = await self.__page.waitForXPath(xcode.GRUPO_1)
+        await element.click()
         
         await self.__page.screenshot({'path': 'screenshots/8-baixar.png'})
         print('Iniciando download do arquivo 7z!')
@@ -73,11 +73,11 @@ class NotSelenium:
         print('Arquivo 7z baixado!')
             
     async def _waitAndClick(self, xcode):
-        await self.__page.waitFor(xcode)
-        await self.__page.click(xcode)
+        element = await self.__page.waitForXPath(xcode)
+        await element.click()
         await asyncio.sleep(5)
         
     async def _waitAndType(self, xcode, input):
-        await self.__page.waitFor(xcode)
-        await self.__page.type(xcode, input)
+        element = await self.__page.waitForXPath(xcode)
+        await element.type(input)
         await asyncio.sleep(5)
