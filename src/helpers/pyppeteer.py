@@ -42,15 +42,8 @@ class NotSelenium:
         print('Sala de Aula aberta!')
 
     async def getFile(self):
-        # Selecionar Card da matéria (Paradigmas de Python...)
-        await self._waitAndClick(xcode.CARD_MATERIA)
-        await self.__page.screenshot({'path': 'screenshots/6-abrirmateria.png'})
-        print('Matéria aberta!')
-
-        # Selecionar o tema (Tema 5)
-        await self._waitAndClick(xcode.TEMA_5)
-        await self.__page.screenshot({'path': 'screenshots/7-abrirtema.png'})
-        print('Tema aberto!')
+        
+        await self._openTema5()
 
         # Selecionar o arquivo para download (Grupo 1)
         element = await self.__page.waitForXPath(xcode.GRUPO_1)
@@ -71,6 +64,28 @@ class NotSelenium:
             f.write(r.content)
             
         print('Arquivo 7z baixado!')
+        
+    async def getProducts(self):
+        
+        await self._openTema5()
+        
+        # Selecionar o arquivo para download (Grupo 2)
+        element = await self.__page.waitForXPath(xcode.GRUPO_2)
+        await element.click()
+        await self.__page.waitForNavigation()
+        
+        await self.__page.screenshot({'path': 'screenshots/8-kabum.png'})
+    
+    async def _openTema5(self):
+        # Selecionar Card da matéria (Paradigmas de Python...)
+        await self._waitAndClick(xcode.CARD_MATERIA)
+        await self.__page.screenshot({'path': 'screenshots/6-abrirmateria.png'})
+        print('Matéria aberta!')
+
+        # Selecionar o tema (Tema 5)
+        await self._waitAndClick(xcode.TEMA_5)
+        await self.__page.screenshot({'path': 'screenshots/7-abrirtema.png'})
+        print('Tema aberto!')
             
     async def _waitAndClick(self, xcode):
         element = await self.__page.waitForXPath(xcode)
