@@ -1,7 +1,6 @@
 import py7zr
-import pandas as pd
+import modin.pandas as pd
 import os
-import openpyxl 
 import math
 
 class save_data:
@@ -46,13 +45,6 @@ class save_data:
 
             excel_path = os.path.join(self.desktop_path, f'arquivo_{i+1}.xlsx')
 
-            workbook = openpyxl.Workbook()
-            sheet = workbook.active
+            df_temp.to_excel(excel_path, index=False)  # Exporta o DataFrame diretamente para o arquivo Excel
 
-            for r, row in enumerate(df_temp.values, start=1):
-                for c, value in enumerate(row, start=1):
-                    
-                    sheet.cell(row=r, column=c).value = value
-                    
-            workbook.save(excel_path)
             print(f'Arquivo {i+1} salvo em {excel_path}')
