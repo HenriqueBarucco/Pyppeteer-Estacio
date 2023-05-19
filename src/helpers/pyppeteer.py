@@ -1,5 +1,5 @@
 from pyppeteer import launch
-import src.entities.xcode as xcode
+import entities.xcode as xcode
 import asyncio
 import requests
 
@@ -67,14 +67,31 @@ class NotSelenium:
         
     async def getProducts(self):
         
-        await self._openTema5()
+        #await self._openTema5()
         
         # Selecionar o arquivo para download (Grupo 2)
-        element = await self.__page.waitForXPath(xcode.GRUPO_2)
-        await element.click()
-        await self.__page.waitForNavigation()
+        #element = await self.__page.waitForXPath(xcode.GRUPO_2)
+        #await element.click()
         
+        await self.__page.goto('https://www.kabum.com.br/')
         await self.__page.screenshot({'path': 'screenshots/8-kabum.png'})
+        
+        await self._waitAndType('//*[@id="input-busca"]', 'placa de video')
+        
+        #await self.__page.keyboard.press('Enter')
+        
+        await self._increasePageSize()
+        await asyncio.sleep(5)
+        
+        await self.__page.screenshot({'path': 'screenshots/9-pesquisa.png'})
+        #all_pages = await self.__browser.pages()
+        #new_page = all_pages[-1]
+        
+        #await new_page.goto('https://outra-pagina.com')
+        
+        #await asyncio.sleep(10)
+        
+        
     
     async def _openTema5(self):
         # Selecionar Card da matéria (Paradigmas de Python...)
@@ -94,5 +111,10 @@ class NotSelenium:
         
     async def _waitAndType(self, xcode, input):
         element = await self.__page.waitForXPath(xcode)
-        await element.type(input)
+        await element.type(input)    
         await asyncio.sleep(5)
+        
+    async def _increasePageSize(self):
+        current_url = await self.__page.evaluate('window.location.href')
+        new_url = current_url + '?page_number=1&page_size=100&facet_filters=&sort=most_searched'
+        await self.__page.goto(new_url)
