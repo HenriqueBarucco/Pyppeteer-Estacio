@@ -1,5 +1,5 @@
 from pyppeteer import launch
-import entities.xcode as xcode
+import src.entities.xcode as xcode
 import asyncio
 import requests
 

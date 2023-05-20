@@ -7,7 +7,7 @@ import re
 
 from src.entities.person import Person 
 
-from app import run_application
+from src.app import run_application
 
 class mega_csv:
 
