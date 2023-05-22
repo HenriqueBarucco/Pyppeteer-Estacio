@@ -1,8 +1,8 @@
-from src.views.mega_csv_screen import mega_csv
+from src.views.main_screen import main_screen
 
 def main():
 
-    screen = mega_csv()
-    screen.create_login_screen()
+   screen = main_screen()
+   screen.show_screen()
 
 main()

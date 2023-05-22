@@ -1,9 +1,9 @@
-import tkinter as tk
+from tkinter import Button, Entry, Label, Tk 
 
 from tkinter import messagebox
 
 from tkinter import filedialog
-import re 
+import re
 
 from src.entities.person import Person 
 
@@ -14,7 +14,7 @@ class mega_csv:
 
     def __init__(self):
 
-        self.window = tk.Tk()
+        self.window = Tk()
 
         self.email_entry = None
 
@@ -26,14 +26,14 @@ class mega_csv:
 
         self.dir_entry = None
 
-        self.frame = tk.Frame(bg='white')
+        self.frame = self.window
 
 
     def create_login_screen(self):
 
-        self.window.title("Login Screen")
+        self.window.title("Pyppeter Estacio")
 
-        self.window.geometry("900x500")
+        self.window.geometry("600x500")
 
         self.window.configure(bg="white")
         self.draw_screen()
@@ -45,37 +45,37 @@ class mega_csv:
 
         #CRIANDO OS WIDGETS
 
-        login_label = tk.Label(
+        login_label = Label(
 
             self.frame, text="Iniciar", bg='white', fg="black", font=("Arial", 30),
         )
 
-        email_label = tk.Label(
+        email_label = Label(
 
     self.frame, text="Email", bg='white', fg="black", font=("Arial", 16))
 
-        dir_label = tk.Label(self.frame,text="Diretório:",bg='white', fg="black", font=("Arial", 16))
+        dir_label = Label(self.frame,text="Diretório:",bg='white', fg="black", font=("Arial", 16))
 
-        dir_button = tk.Button(
+        dir_button = Button(
 
-        self.frame, text="Selecionar", bg="#bb86ff", fg="#FFFFFF", font=("Arial", 16), command=self.open_directory_dialog
+        self.frame, text="Selecionar", bg="black", fg="#FFFFFF", font=("Arial", 16), command=self.open_directory_dialog
     )
 
-        self.email_entry = tk.Entry(self.frame,font=("Arial",16),width=40)
+        self.email_entry = Entry(self.frame,font=("Arial",16),width=40)
 
-        self.password_entry = tk.Entry(self.frame,show="*",font=("Arial",16),width=40)
+        self.password_entry = Entry(self.frame,show="*",font=("Arial",16),width=40)
 
-        self.phone_entry = tk.Entry(self.frame,font=("Arial",16),width=40)
+        self.phone_entry = Entry(self.frame,font=("Arial",16),width=40)
 
-        password_label = tk.Label(
+        password_label = Label(
 
     self.frame, text="Senha", bg='white', fg="black", font=("Arial", 16))
 
-        phone_label = tk.Label(
+        phone_label = Label(
 
     self.frame, text="Telefone", bg='white', fg="black", font=("Arial", 16))
 
-        login_button = tk.Button(self.frame, text="Iniciar", bg="#bb86ff", fg="#FFFFFF", font=("Arial", 16), command=self.validate_login,border=10)
+        login_button = Button(self.frame, text="Iniciar", bg="black", fg="#FFFFFF", font=("Arial", 16), command=self.validate_login,border=10)
 
         #POSICIONANDO NA TELA 
         
@@ -100,7 +100,6 @@ class mega_csv:
 
         login_button.grid(row=5, column=0, columnspan=2, pady=30)
 
-        self.frame.pack()
 
     
 

@@ -1,6 +1,6 @@
-from tkinter import Tk
-from kabum_scrap_screen import kabum_scrapping_screen
-
+from tkinter import CENTER, Button, Label, Tk
+from src.views.kabum_scrap_screen import kabum_scrapping_screen
+from src.views.mega_csv_screen import mega_csv
 
 class main_screen:
 
@@ -28,27 +28,16 @@ class main_screen:
         kabum_scrapping = Button(self.window,text='Kabum Scrap',bg='black',fg='white',command=lambda: self.navigate_command("Kabum Scrap"))
         kabum_scrapping.place(relx=0.5, rely=0.6, anchor=CENTER)
 
-
     def navigate_command(self,button_clicked):
         if button_clicked == "Mega Csv":
-            #chama a login screen
+            mega_csv_screen = mega_csv()
             self.window.destroy()
+            mega_csv_screen.create_login_screen()
         elif button_clicked == "Kabum Scrap":
             kabum = kabum_scrapping_screen()
             self.window.destroy()
             kabum.show_screen()
             
-
-    
-   
-
-
 #exemplo de chamada
 #main = main_screen()
 #main.show_screen()
-
-
-
-
-
-
