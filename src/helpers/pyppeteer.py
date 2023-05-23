@@ -65,34 +65,6 @@ class NotSelenium:
             
         print('Arquivo 7z baixado!')
         
-    async def getProducts(self):
-        
-        #await self._openTema5()
-        
-        # Selecionar o arquivo para download (Grupo 2)
-        #element = await self.__page.waitForXPath(xcode.GRUPO_2)
-        #await element.click()
-        
-        await self.__page.goto('https://www.kabum.com.br/')
-        await self.__page.screenshot({'path': 'screenshots/8-kabum.png'})
-        
-        await self._waitAndType('//*[@id="input-busca"]', 'placa de video')
-        
-        #await self.__page.keyboard.press('Enter')
-        
-        await self._increasePageSize()
-        await asyncio.sleep(5)
-        
-        await self.__page.screenshot({'path': 'screenshots/9-pesquisa.png'})
-        #all_pages = await self.__browser.pages()
-        #new_page = all_pages[-1]
-        
-        #await new_page.goto('https://outra-pagina.com')
-        
-        #await asyncio.sleep(10)
-        
-        
-    
     async def _openTema5(self):
         # Selecionar Card da matéria (Paradigmas de Python...)
         await self._waitAndClick(xcode.CARD_MATERIA)
@@ -116,5 +88,6 @@ class NotSelenium:
         
     async def _increasePageSize(self):
         current_url = await self.__page.evaluate('window.location.href')
-        new_url = current_url + '?page_number=1&page_size=100&facet_filters=&sort=most_searched'
-        await self.__page.goto(new_url)
+        print(current_url)
+        #new_url = current_url + '?page_number=1&page_size=100&facet_filters=&sort=price'
+        #await self.__page.goto(new_url)
