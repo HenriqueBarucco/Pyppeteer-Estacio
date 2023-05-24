@@ -2,6 +2,7 @@ import py7zr
 import modin.pandas as pd
 import os
 import math
+from openpyxl import Workbook
 
 class save_data:
 
@@ -48,3 +49,18 @@ class save_data:
             df_temp.to_excel(excel_path, index=False)  # Exporta o DataFrame diretamente para o arquivo Excel
 
             print(f'Arquivo {i+1} salvo em {excel_path}')
+            
+    def productToXlsx(products_list,path):
+        workbook = Workbook()
+        sheet = workbook.active
+        
+        headers = ['Nome','Preço Normal','Preço com desconto','Duração da oferta','Url']
+        sheet.append(headers)
+        
+        for product in products_list:
+            data = [product['nome'],product['preco_normal'],product['preco_desconto'],product['duracao'],product['url']]
+            sheet.append(data)
+        
+        save_spot = path+'\produtos.xlsx'    
+        workbook.save(save_spot)
+        
