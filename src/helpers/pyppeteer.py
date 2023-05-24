@@ -1,5 +1,5 @@
 from pyppeteer import launch
-import entities.xpath as xpath
+import src.entities.xpath as xpath
 import asyncio
 import requests
 
