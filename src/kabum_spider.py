@@ -10,7 +10,7 @@ class KabumSpider(scrapy.Spider):
         self.produto = produto
         self.produtos = list()
         self.start_urls = ['https://www.kabum.com.br/busca/%s?page_number=1&page_size=100&facet_filters=&sort=price' % produto]
-
+        
     def start_requests(self):
         headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 Edg/111.0.0.0'}
         for url in self.start_urls:
@@ -34,13 +34,19 @@ class KabumSpider(scrapy.Spider):
 
         item['url'] = response.url
             
+        
         item['nome'] = response.xpath('//*[@id="__next"]/main/article/section/div[3]/div[1]/div/h1/text()').extract_first()
+        if item['nome'] is None:
+            item['nome'] = response.xpath('//*[@id="__next"]/main/article/section/div[2]/div[1]/div/h1/text()').extract_first()
         
         try:
-            item['duracao'] = response.xpath('//*[@id="cardAlertaOferta"]/div[1]/div/div/text()')
+            item['duracao'] = response.xpath('//*[@id="cardAlertaOferta"]/div[1]/div/div/span/text()').extract()
         except AttributeError:
             self.logger.debug('Falha ao extrair duração em %s', response.url)
             pass
+        
+        item['duracao'] = response.xpath('//*[@id="cardAlertaOferta"]/div[1]/div/div/span').get()
+        
 
         precos = {
             'preco_normal': response.xpath('//*[@id="blocoValores"]/div[3]/b/text()').re(r'\d*\.*\d+\,\d+'),
