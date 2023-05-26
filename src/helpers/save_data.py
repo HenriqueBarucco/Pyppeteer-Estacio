@@ -69,6 +69,6 @@ class save_data:
             ]
             sheet.append(data)
         
-        save_spot = path+'\produtos.xlsx'    
+        save_spot = os.path.join(path, 'produtos.xlsx') 
         workbook.save(save_spot)
         
