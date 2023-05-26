@@ -54,11 +54,11 @@ class save_data:
         workbook = Workbook()
         sheet = workbook.active
         
-        headers = ['Nome','Preço Normal','Preço com desconto','Duração da oferta','Url']
+        headers = ['Nome','Status','Preço Normal','Preço com desconto a vista','Preço com desconto','Duração da oferta','Url']
         sheet.append(headers)
         
         for product in products_list:
-            data = [product['nome'],product['preco_normal'],product['preco_desconto'],product['duracao'],product['url']]
+            data = [product['nome'],product['status'],product['preco_normal'],product['preco_desconto'],product['preco_desconto_normal'],product['duracao'],product['url']]
             sheet.append(data)
         
         save_spot = path+'\produtos.xlsx'    

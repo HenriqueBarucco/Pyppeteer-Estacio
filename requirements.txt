@@ -3,5 +3,6 @@ pandas==1.5.3
 py7zr==0.20.5
 python-dotenv==1.0.0
 pyppeteer==1.0.2
-requests==2.30.0
+requests==2.31.0
 modin==0.20.1
+scrapy==2.9.0

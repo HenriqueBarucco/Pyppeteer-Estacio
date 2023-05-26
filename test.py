@@ -8,5 +8,5 @@ def run_spider(produto):
     process.start()
 
 if __name__ == "__main__":
-    nome_do_produto = "placa"
+    nome_do_produto = "i7"
     run_spider(produto=nome_do_produto)
