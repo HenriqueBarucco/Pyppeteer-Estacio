@@ -1,8 +1,8 @@
 from tkinter import CENTER, Button, Entry, Label, Tk 
 from tkinter import filedialog
 from tkinter import messagebox
-
-
+from src.kabum_spider import KabumSpider
+from scrapy.crawler import CrawlerProcess
 
 class kabum_scrapping_screen:
 
@@ -57,7 +57,10 @@ class kabum_scrapping_screen:
     def _handle_alert_dialog_return(self,return_value):
             if return_value == False:
                 return None
-            print('INICIA O SCRAPY AQUI HENRIQUE '+self.product_txtfld.get() + " " + self._directory_selection)
+            #print('INICIA O SCRAPY AQUI HENRIQUE '+self.product_txtfld.get() + " " + self._directory_selection)
+            process = CrawlerProcess()
+            process.crawl(KabumSpider, produto=self.product_txtfld.get(), path=self.dir_entry)
+            process.start()
 
 #definir o command do botao
     def setup_buton(self):

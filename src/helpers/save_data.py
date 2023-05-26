@@ -58,7 +58,15 @@ class save_data:
         sheet.append(headers)
         
         for product in products_list:
-            data = [product['nome'],product['status'],product['preco_normal'],product['preco_desconto'],product['preco_desconto_normal'],product['duracao'],product['url']]
+            data = [
+                product.get('nome', None),
+                product.get('status', None),
+                product.get('preco_normal', None),
+                product.get('preco_desconto', None),
+                product.get('preco_desconto_normal', None),
+                product.get('duracao', None),
+                product.get('url', None)
+            ]
             sheet.append(data)
         
         save_spot = path+'\produtos.xlsx'    

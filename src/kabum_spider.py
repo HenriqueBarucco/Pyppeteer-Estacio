@@ -14,9 +14,10 @@ class KabumSpider(scrapy.Spider):
     
     produtos = list()
     
-    def __init__(self, produto, *args, **kwargs):
+    def __init__(self, produto, path, *args, **kwargs):
         super(KabumSpider, self).__init__(*args, **kwargs)
         self.produto = produto
+        self.path = path
         self.start_urls = ['https://www.kabum.com.br/busca/%s' % produto]
         
     def start_requests(self):
@@ -24,7 +25,8 @@ class KabumSpider(scrapy.Spider):
             yield Request(url, headers=self.headers)
         
     def closed(self, spider):
-        save_data.productToXlsx(self.produtos,'E:\Henrique-PC\Desktop')
+        save_data.productToXlsx(self.produtos,str(self.path))
+        print('Arquivo salvo em '+str(self.path))
             
     def parse(self, response):
         new_url = urljoin(response.url, f"?page_number=1&page_size=100&facet_filters=&sort=price")
@@ -34,7 +36,33 @@ class KabumSpider(scrapy.Spider):
 
         for page in pages:
             url = "https://www.kabum.com.br" + page.xpath('./@href').get()
-            yield SplashRequest(url, self.parse_item, endpoint='render.html', args={'wait': 10}, headers=self.headers)
+            script = """
+            function main(splash)
+            local targetSelector = "//*[@id="cardAlertaOferta"]/div[1]/div/div/span";
+
+            function waitForText(selector, callback)
+                local element = splash:select(selector)
+
+                function checkText()
+                local text = element:text()
+                if text and text:trim() ~= '' then
+                    callback()
+                else
+                    splash:wait(0.1) -- Espera 100ms e verifica novamente
+                    checkText()
+                end
+                end
+
+                checkText()
+            end
+
+            waitForText(targetSelector, function()
+                splash:wait(0.5) -- Aguarda mais meio segundo para garantir que o conteúdo seja carregado completamente
+                splash:html()
+            end)
+            end
+            """
+            yield SplashRequest(url, self.parse_item, endpoint='render.html', args={'wait': 30, 'js_source': script}, headers=self.headers)
 
 
     def parse_item(self, response):
@@ -59,15 +87,8 @@ class KabumSpider(scrapy.Spider):
             item['status'] = '✅'
         elif response.xpath(discount_price_xpath):
             item['preco_normal'] = float(response.xpath(discount_price_xpath).re(r'\d*\.*\d+\,\d+')[0].replace('.','').replace(',','.'))
-            item['duracao'] = None
-            item['preco_desconto'] = None
-            item['preco_desconto_normal'] = None
             item['status'] = '✅'
         else:
-            item['preco_normal'] = None
-            item['duracao'] = None
-            item['preco_desconto'] = None
-            item['preco_desconto_normal'] = None
             item['status'] = '❌'
 
         self.produtos.append(item)
