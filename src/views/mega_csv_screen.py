@@ -8,6 +8,7 @@ import re
 from src.entities.person import Person 
 
 from src.app import run_application
+from src.views.helpers.navigate_helper import navigate_helper
 
 class mega_csv:
 
@@ -77,6 +78,8 @@ class mega_csv:
 
         login_button = Button(self.frame, text="Iniciar", bg="black", fg="#FFFFFF", font=("Arial", 16), command=self.validate_login,border=10)
 
+        back_btn = Button(self.window,text="Voltar", bg='black',fg='white',command=lambda: navigate_helper._navigate_back_to_main(window=self.window) )
+        back_btn.place(relx= 0.9,rely=0.9)
         #POSICIONANDO NA TELA 
         
 

@@ -28,6 +28,7 @@ class main_screen:
         kabum_scrapping = Button(self.window,text='Kabum Scrap',bg='black',fg='white',command=lambda: main_screen.navigate_command(self.window,"Kabum Scrap"))
         kabum_scrapping.place(relx=0.5, rely=0.6, anchor=CENTER)
 
+    @staticmethod
     def navigate_command(window,button_clicked):
         if button_clicked == "Mega Csv":
             mega_csv_screen = mega_csv()

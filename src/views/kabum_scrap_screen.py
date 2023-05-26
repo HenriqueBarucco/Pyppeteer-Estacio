@@ -3,6 +3,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 from src.kabum_spider import KabumSpider
 from scrapy.crawler import CrawlerProcess
+from src.views.helpers.navigate_helper import navigate_helper
 
 class kabum_scrapping_screen:
 
@@ -62,13 +63,15 @@ class kabum_scrapping_screen:
             process.crawl(KabumSpider, produto=self.product_txtfld.get(), path=self.dir_entry)
             process.start()
 
+    
+
 #definir o command do botao
     def setup_buton(self):
         #"o produto pega assim  "+self.product_txtfld.get() + "o diretorio assim " + self.dir_entry
         directory_btn = Button(self.window,text="Selecione o diretório", bg='black',fg='white',command=lambda: self._directory_selection())
         directory_btn.place(relx= 0.5,rely=0.6,anchor=CENTER)
 
-        back_btn = Button(self.window,text="Voltar", bg='black',fg='white',command=lambda: print('a realizar o navigate'))
+        back_btn = Button(self.window,text="Voltar", bg='black',fg='white',command=lambda: navigate_helper._navigate_back_to_main(window=self.window) )
         back_btn.place(relx= 0.9,rely=0.9)
         
         go_btn = Button(self.window,text='Iniciar',bg='black',fg='white',command=lambda: self._handle_alert_dialog_return(self._dir_alert_dialog(self.dir_entry))  ) 
