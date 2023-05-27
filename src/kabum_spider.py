@@ -38,28 +38,11 @@ class KabumSpider(scrapy.Spider):
             url = "https://www.kabum.com.br" + page.xpath('./@href').get()
             script = """
             function main(splash)
-            local targetSelector = "//*[@id="cardAlertaOferta"]/div[1]/div/div/span";
+            assert(splash:go(splash.args.url))
 
-            function waitForText(selector, callback)
-                local element = splash:select(selector)
+            splash:wait(10)
 
-                function checkText()
-                local text = element:text()
-                if text and text:trim() ~= '' then
-                    callback()
-                else
-                    splash:wait(0.1) -- Espera 100ms e verifica novamente
-                    checkText()
-                end
-                end
-
-                checkText()
-            end
-
-            waitForText(targetSelector, function()
-                splash:wait(0.5) -- Aguarda mais meio segundo para garantir que o conteúdo seja carregado completamente
-                splash:html()
-            end)
+            return splash:html()
             end
             """
             yield SplashRequest(url, self.parse_item, endpoint='render.html', args={'wait': 30, 'js_source': script}, headers=self.headers)
