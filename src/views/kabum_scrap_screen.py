@@ -11,6 +11,7 @@ class kabum_scrapping_screen:
         self.window = Tk()
         self.product_txtfld = None
         self.dir_entry = None
+        self.telefone_txtfld = None
         
     def show_screen(self):
         self.window.title('Pyppeter Estacio')
@@ -37,7 +38,9 @@ class kabum_scrapping_screen:
         self.product_txtfld = Entry(self.window,bd=5)
         self.product_txtfld.place(relx=0.5,rely=0.5,anchor=CENTER)
         
-        
+        self.telefone_txtfld = Entry(self.window,bd=5)
+        self.telefone_txtfld.place(relx=0.5,rely=0.6,anchor=CENTER)
+            
     def _dir_alert_dialog(self,directory):
         if  directory == None or not directory :
             messagebox.showerror("Erro","Selecione um Diretório válido...") 
@@ -58,7 +61,13 @@ class kabum_scrapping_screen:
     def _handle_alert_dialog_return(self,return_value):
             if return_value == False:
                 return None
-            #print('INICIA O SCRAPY AQUI HENRIQUE '+self.product_txtfld.get() + " " + self._directory_selection)
+            if self.telefone_txtfld.get() == None or not self.telefone_txtfld.get():
+                messagebox.showerror("Erro","Telefone inválido...") 
+                return None
+            if self.product_txtfld.get() == None or not self.product_txtfld.get():
+                messagebox.showerror("Erro","Digite um produto...") 
+                return None 
+            
             process = CrawlerProcess()
             process.crawl(KabumSpider, produto=self.product_txtfld.get(), path=self.dir_entry)
             process.start()
@@ -69,12 +78,12 @@ class kabum_scrapping_screen:
     def setup_buton(self):
         #"o produto pega assim  "+self.product_txtfld.get() + "o diretorio assim " + self.dir_entry
         directory_btn = Button(self.window,text="Selecione o diretório", bg='black',fg='white',command=lambda: self._directory_selection())
-        directory_btn.place(relx= 0.5,rely=0.6,anchor=CENTER)
+        directory_btn.place(relx= 0.5,rely=0.7,anchor=CENTER)
 
         back_btn = Button(self.window,text="Voltar", bg='black',fg='white',command=lambda: navigate_helper._navigate_back_to_main(window=self.window) )
         back_btn.place(relx= 0.9,rely=0.9)
         
         go_btn = Button(self.window,text='Iniciar',bg='black',fg='white',command=lambda: self._handle_alert_dialog_return(self._dir_alert_dialog(self.dir_entry))  ) 
-        go_btn.place(relx=0.5,rely=0.7,anchor=CENTER)
+        go_btn.place(relx=0.5,rely=0.8,anchor=CENTER)
         
         
