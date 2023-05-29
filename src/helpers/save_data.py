@@ -64,7 +64,6 @@ class save_data:
                 product.get('preco_normal', None),
                 product.get('preco_desconto', None),
                 product.get('preco_desconto_normal', None),
-                product.get('duracao', None),
                 product.get('url', None)
             ]
             sheet.append(data)

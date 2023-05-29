@@ -6,5 +6,4 @@ class Product(scrapy.Item):
     preco_normal = scrapy.Field() # Valor Real
     preco_desconto = scrapy.Field() # Valor Promocional a vista
     preco_desconto_normal = scrapy.Field() # Valor Real do Promocional
-    duracao = scrapy.Field() # Duração da promoção
     status = scrapy.Field() # Status do produto

@@ -9,4 +9,4 @@ def run_spider(produto, path):
 
 if __name__ == "__main__":
     nome_do_produto = "i7"
-    run_spider(produto=nome_do_produto, path="E:\Henrique-PC\Desktop")
+    run_spider(produto=nome_do_produto, path="/home/mauri/Área de Trabalho")

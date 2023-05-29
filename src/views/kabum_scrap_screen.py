@@ -48,15 +48,11 @@ class kabum_scrapping_screen:
         else:
              messagebox.showinfo("Alerta", "O arquivo sera salvo em " + self.dir_entry )
              return True
-    
-    
-    
-        
+
     def _directory_selection(self):
         selected_dir = filedialog.askdirectory(initialdir="~")
         
         self.dir_entry = selected_dir
-        
         
     def _handle_alert_dialog_return(self,return_value):
             if return_value == False:
@@ -69,7 +65,7 @@ class kabum_scrapping_screen:
                 return None 
             
             process = CrawlerProcess()
-            process.crawl(KabumSpider, produto=self.product_txtfld.get(), path=self.dir_entry)
+            process.crawl(KabumSpider, produto=self.product_txtfld.get(), path=self.dir_entry, phone=self.telefone_txtfld.get())
             process.start()
 
     

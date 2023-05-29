@@ -1,10 +1,12 @@
 import scrapy
 import logging
+import os
 from scrapy import Request
 from scrapy_splash import SplashRequest
 from urllib.parse import urljoin
 from src.entities.product import Product
 from src.helpers.save_data import save_data
+from src.helpers.whatsapp import WhatsAppAPI
 
 class KabumSpider(scrapy.Spider):
     name = 'kabum'
@@ -14,10 +16,11 @@ class KabumSpider(scrapy.Spider):
     
     produtos = list()
     
-    def __init__(self, produto, path, *args, **kwargs):
+    def __init__(self, produto, path, phone, *args, **kwargs):
         super(KabumSpider, self).__init__(*args, **kwargs)
         self.produto = produto
         self.path = path
+        self.phone = phone
         self.start_urls = ['https://www.kabum.com.br/busca/%s' % produto]
         
     def start_requests(self):
@@ -26,6 +29,9 @@ class KabumSpider(scrapy.Spider):
         
     def closed(self, spider):
         save_data.productToXlsx(self.produtos,str(self.path))
+        path = os.path.join(self.path, 'produtos.xlsx') 
+        WhatsAppAPI.sendMessage(self.phone, 'Olá, aqui estão os produtos pesquisados na Kabum!')
+        WhatsAppAPI.sendFile(self.phone, path)
         print('Arquivo salvo em '+str(self.path))
             
     def parse(self, response):
@@ -66,7 +72,6 @@ class KabumSpider(scrapy.Spider):
             item['preco_normal'] = float(response.xpath(normal_price_xpath).re(r'\d*\.*\d+\,\d+')[0].replace('.','').replace(',','.'))
             item['preco_desconto'] = float(response.xpath(discount_price_xpath).re(r'\d*\.*\d+\,\d+')[0].replace('.','').replace(',','.'))
             item['preco_desconto_normal'] = float(response.xpath(non_discounted_price_xpath).re(r'\d*\.*\d+\,\d+')[0].replace('.','').replace(',','.'))
-            item['duracao'] = response.xpath('//*[@id="cardAlertaOferta"]/div[1]/div/div/span/text()').extract_first()
             item['status'] = '✅'
         elif response.xpath(discount_price_xpath):
             item['preco_normal'] = float(response.xpath(discount_price_xpath).re(r'\d*\.*\d+\,\d+')[0].replace('.','').replace(',','.'))
