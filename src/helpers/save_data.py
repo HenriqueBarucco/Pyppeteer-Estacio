@@ -2,6 +2,7 @@ import py7zr
 import modin.pandas as pd
 import os
 import math
+import ray
 from openpyxl import Workbook
 
 class save_data:
@@ -11,6 +12,7 @@ class save_data:
         self.seven_zip_file_path = seven_zip_file_path
         self.directory = directory
         self.desktop_path = desktop_path
+        ray.init()
 
     def execute(self):
         df = pd.read_csv(self._unzip())

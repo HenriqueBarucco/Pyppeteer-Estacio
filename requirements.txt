@@ -7,3 +7,4 @@ requests==2.31.0
 modin==0.20.1
 scrapy==2.9.0
 scrapy_splash==0.0.9
+ray==2.4.0
